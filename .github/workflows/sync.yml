@@ -1,13 +1,19 @@
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # every 30 minutes
+  workflow_dispatch: # on button click
+
 jobs:
-  update_external_airflow_fork:
+  sync:
+
     runs-on: ubuntu-latest
+
     steps:
-      - uses: TobKed/github-forks-sync-action@master
+      - uses: tgymnich/fork-sync@v1.3
         with:
           github_token: ${{ secrets.fork_sync }}
-          upstream_repository: apache/airflow
-          target_repository: TobKed/airflow
-          upstream_branch: master
-          target_branch: master
-          force: true
-          tags: true
+          owner: llvm
+          base: master
+          head: master
